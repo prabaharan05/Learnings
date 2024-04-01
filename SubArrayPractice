@@ -10,7 +10,7 @@ public class SubArray {
 		SubArray.printSubArray(subArr, 0, 0,0);
 		
 	}
-	
+	//Create method and pass the array and start and end point of the array increase recusively
 	static void printSubArray(int[] arr,int start, int end,int count) {
 		
 		if(end==arr.length) {
