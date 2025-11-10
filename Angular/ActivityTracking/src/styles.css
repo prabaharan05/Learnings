@@ -1,0 +1,16 @@
+/* Global styles for Activity Tracking app */
+html, body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", Arial, sans-serif;
+  min-height: 100vh;
+  /* Gradient background for the whole app */
+  background: linear-gradient(135deg, #f5f7fa 0%, #dee5ee 50%, #ced8e9 100%);
+  color: #111;
+}
+
+/* Add app-wide styles here */
+
+/* Optional: make the root element take full height so children can center vertically if needed */
+app-root, body, html {
+  height: 100%;
+}

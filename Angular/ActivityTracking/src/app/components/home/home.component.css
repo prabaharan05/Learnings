@@ -1,0 +1,217 @@
+/* Styles for HomeComponent */
+.home {
+  max-width: 1200px; /* increased from 900px to allow a wider table */
+  margin: 0 auto; /* center horizontally */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+.home h2 {
+  text-align: center;
+  width: 100%;
+}
+
+/* Center layout and responsive form */
+.revision-form {
+  width: 100%;
+  max-width: 800px;
+  background: #fff;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  box-sizing: border-box;
+}
+
+.revision-form .row {
+  margin-bottom: 12px;
+}
+
+.two-cols {
+  display: flex;
+  gap: 12px;
+}
+
+.two-cols > div {
+  flex: 1;
+}
+
+.revision-form textarea,
+.revision-form input,
+.revision-form select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+/* Label styling: left-aligned and dark blue */
+.revision-form label {
+  display: block;
+  text-align: left;
+  color: #0b3d91; /* dark blue */
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.list {
+  width: 100%;
+  max-width: 800px;
+  margin-top: 20px;
+}
+
+.list ul { list-style: none; padding: 0; margin: 0; }
+.list li {
+  border: 1px solid #e6e6e6;
+  padding: 12px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  background: #fafafa;
+}
+
+.meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.item-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+  justify-content: flex-end;
+}
+
+button { cursor: pointer; }
+button.muted { background: transparent; border: 1px solid #ccc; padding: 6px 10px; border-radius:4px; }
+button.danger { background: #ffefef; border: 1px solid #ffb3b3; padding: 6px 10px; border-radius:4px; }
+
+.problem { white-space: pre-wrap; }
+
+/* Responsive: stack two-cols on small screens */
+@media (max-width: 600px) {
+  .two-cols { flex-direction: column; }
+  .actions { justify-content: stretch; }
+  .item-actions { justify-content: stretch; }
+}
+
+/* Ensure label and input alignment on larger screens */
+@media (min-width: 601px) {
+  .two-cols > div { display: flex; flex-direction: column; }
+  .two-cols > div label { margin-bottom: 8px; }
+}
+
+/* Table styles for revisions */
+.table-wrap {
+  width: 100%;
+  overflow: auto;
+  /* Fixed visible window height for the table area */
+  max-height: 48vh; /* ~half the viewport height; adjust as needed */
+  border: 1px solid rgba(0,0,0,0.06);
+  border-radius: 6px;
+  background: rgba(255,255,255,0.85);
+}
+
+.table-wrap table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 1200px; /* increased from 900px to allow wider table */
+}
+
+.table-wrap th, .table-wrap td {
+  padding: 8px 10px;
+  border: 1px solid #e6e6e6;
+  text-align: left;
+  vertical-align: top;
+}
+
+.table-wrap thead th {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  /* reinforce header background so content doesn't show through */
+  background: #0b3d91;
+  color: #fff;
+  font-weight: 500;
+}
+
+.table-wrap tbody tr:nth-child(even) {
+  background: rgba(11,61,145,0.03);
+}
+
+.table-wrap tbody td {
+  border-bottom: 1px solid rgba(11,61,145,0.06);
+}
+
+.actions-cell { white-space: nowrap; }
+.actions-cell button { margin-left: 6px; }
+
+/* Improve scrollbar visibility on macOS / modern browsers */
+.table-wrap::-webkit-scrollbar {
+  height: 10px;
+  width: 10px;
+}
+.table-wrap::-webkit-scrollbar-thumb {
+  background: rgba(11,61,145,0.25);
+  border-radius: 6px;
+}
+
+/* Make table fit smaller screens better */
+@media (max-width: 900px) {
+  .table-wrap table { min-width: 700px; }
+}
+
+/* Responsive: convert table to stacked cards on small screens */
+@media (max-width: 900px) {
+  .table-wrap { max-height: none; }
+  .table-wrap table, .table-wrap thead, .table-wrap tbody, .table-wrap th, .table-wrap td, .table-wrap tr {
+    display: block;
+  }
+  .table-wrap thead { display: none; }
+  .table-wrap tr {
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 6px;
+    margin: 8px 0;
+    padding: 8px;
+    background: #fff;
+  }
+  .table-wrap td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 6px;
+    border: none;
+    border-bottom: 1px dashed rgba(11,61,145,0.06);
+  }
+  .table-wrap td:last-child { border-bottom: none; }
+
+  /* Show the label from data-label before each value */
+  .table-wrap td::before {
+    content: attr(data-label) ": ";
+    flex: 0 0 40%;
+    color: #0b3d91;
+    font-weight: 600;
+    padding-right: 8px;
+    white-space: nowrap;
+    text-align: left;
+  }
+
+  .table-wrap .problem::before { content: "Problem: "; }
+  .table-wrap .actions-cell { display: flex; gap: 8px; justify-content: flex-end; }
+
+  /* Make the value wrap and take remaining space */
+  .table-wrap td > * { flex: 1 1 auto; }
+
+  /* Remove the inner horizontal scroll for mobile */
+  .table-wrap { overflow: visible; }
+}

@@ -1,0 +1,124 @@
+<div class="home">
+  <h2>Revision Tracker</h2>
+
+  <form class="revision-form" (ngSubmit)="save()" #revForm="ngForm">
+    <div class="row">
+      <label for="problem">Problem</label>
+      <textarea id="problem" name="problem" [(ngModel)]="revision.problem" required rows="3" placeholder="Describe the problem"></textarea>
+    </div>
+
+    <div class="row two-cols">
+      <div>
+        <label for="concept">Concept</label>
+        <input id="concept" name="concept" [(ngModel)]="revision.concept" placeholder="Related concept" />
+      </div>
+
+      <div>
+        <label for="difficulty">Difficulty level</label>
+        <select id="difficulty" name="difficulty" [(ngModel)]="revision.difficulty">
+          <option value="Easy">Easy</option>
+          <option value="Medium">Medium</option>
+          <option value="Hard">Hard</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row two-cols">
+      <div>
+        <label for="revisedTime">Revised Time (minutes)</label>
+        <input id="revisedTime" name="revisedTime" type="number" min="0" [(ngModel)]="revision.revisedTime" />
+      </div>
+
+      <div>
+        <label for="attempt">Which attempt solved on own</label>
+        <input id="attempt" name="attempt" type="number" min="0" [(ngModel)]="revision.attempt" />
+      </div>
+    </div>
+
+    <div class="row two-cols">
+      <div>
+        <label for="date">Date</label>
+        <input id="date" name="date" type="date" [(ngModel)]="revision.date" />
+      </div>
+      <div>
+        <label for="reviseDate">Revise Date</label>
+        <input id="reviseDate" name="reviseDate" type="date" [(ngModel)]="revision.reviseDate" />
+      </div>
+    </div>
+
+    <div class="row">
+      <label for="timeTaken">Note</label>
+      <input id="timeTaken" name="note"  [(ngModel)]="revision.note" />
+    </div>
+
+    <div class="actions">
+      <button type="submit" [disabled]="!revision.problem">Save Revision</button>
+      <button type="button" class="muted" (click)="reset()">Reset</button>
+    </div>
+  </form>
+
+  <!-- Filter / Search toolbar -->
+  <div class="filter-bar">
+    <div class="search">
+      <input type="search" placeholder="Search problems or concepts" [(ngModel)]="searchText" name="searchText" (input)="onFilterChange()" />
+    </div>
+
+    <div class="filters">
+      <input type="text" placeholder="Concept" [(ngModel)]="filterConcept" name="filterConcept" (input)="onFilterChange()" />
+
+      <select [(ngModel)]="filterDifficulty" name="filterDifficulty" (change)="onFilterChange()">
+        <option value="">All Difficulty</option>
+        <option value="Easy">Easy</option>
+        <option value="Medium">Medium</option>
+        <option value="Hard">Hard</option>
+      </select>
+
+      <input type="date" [(ngModel)]="fromDate" name="fromDate" (change)="onFilterChange()" />
+      <input type="date" [(ngModel)]="toDate" name="toDate" (change)="onFilterChange()" />
+
+      <button type="button" class="muted" (click)="clearFilters()">Clear</button>
+    </div>
+  </div>
+
+  
+</div>
+<section class="list11">
+
+    <div *ngIf="filteredRevisions.length === 0" class="empty">No revisions yet.</div>
+
+    <div *ngIf="filteredRevisions.length > 0" class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Problem</th>
+            <th>Concept</th>
+            <th>Difficulty</th>
+            <th>Revised Time (min)</th>
+            <th>Attempt Solved</th>
+            <th>Date</th>
+            <th>Revise Date</th>
+            <th>Time Taken (min)</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let r of filteredRevisions; let i = index">
+            <td data-label="#">{{ i + 1 }}</td>
+            <td class="problem" data-label="Problem">{{ r.problem }}</td>
+            <td data-label="Concept">{{ r.concept || '-' }}</td>
+            <td data-label="Difficulty">{{ r.difficulty }}</td>
+            <td data-label="Revised Time">{{ r.revisedTime ?? '-' }}</td>
+            <td data-label="Attempt">{{ r.attempt ?? '-' }}</td>
+            <td data-label="Date">{{ r.date || '-' }}</td>
+            <td data-label="Revise Date">{{ r.reviseDate || '-' }}</td>
+            <td data-label="Time Taken">{{ r.note ?? '-' }}</td>
+            <td class="actions-cell" data-label="Actions">
+              <button (click)="editItem(r)">Edit</button>
+              <button class="danger" (click)="removeItem(r)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>

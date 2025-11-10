@@ -1,0 +1,17 @@
+<div class="login">
+  <div *ngIf="!user" class="signin">
+    <div id="googleSignInDiv"></div>
+    <p class="hint">Sign in with your Google account to sync revisions.</p>
+  </div>
+
+  <div *ngIf="user" class="profile">
+    <img *ngIf="user.picture" [src]="user.picture" alt="avatar" />
+    <div class="meta">
+      <div class="name">{{ user.name || user['given_name'] || user.email }}</div>
+      <div class="email">{{ user.email }}</div>
+    </div>
+    <div class="controls">
+      <button (click)="signOut()">Sign out</button>
+    </div>
+  </div>
+</div>

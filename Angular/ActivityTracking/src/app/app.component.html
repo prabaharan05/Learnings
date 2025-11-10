@@ -1,0 +1,25 @@
+<div class="app-layout">
+  <aside class="side-nav">
+    <div class="brand">Activity Tracking</div>
+    <nav>
+      <ul>
+        <li><a routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a></li>
+        <li><a routerLink="/home" routerLinkActive="">Revisions</a></li>
+        <li><a routerLink="/" routerLinkActive="">Statistics</a></li>
+        <li><a routerLink="/login" routerLinkActive="">Settings</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+    <header class="page-header">
+      <h1>Activity Tracking</h1>
+      <hr class="header-divider" />
+      <p class="lead">This application helps you track your activities efficiently.</p>
+    </header>
+
+    <section class="page-body">
+      <router-outlet></router-outlet>
+    </section>
+  </main>
+</div>
